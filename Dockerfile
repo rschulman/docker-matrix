@@ -13,16 +13,14 @@ COPY adds/supervisord.conf /
 
 # startup configuration
 ENTRYPOINT ["/start.sh"]
-CMD ["start"]
+CMD ["autostart"]
 EXPOSE 8448
 VOLUME ["/data"]
 
 # Git branch to build from
 ARG BV_SYN=master
 ARG BV_TUR=master
-ARG TAG_SYN=v0.27.3
-# https://github.com/python-pillow/Pillow/issues/1763
-ENV LIBRARY_PATH=/lib:/usr/lib
+ARG TAG_SYN=v0.31.2
 
 # user configuration
 ENV MATRIX_UID=991 MATRIX_GID=991
@@ -77,10 +75,10 @@ RUN set -ex \
         python-pip \
         python-psycopg2 \
         python-virtualenv \
+	python-jinja2 \
         sqlite \
         zlib1g \
     ; \
-    pip install --upgrade pip ;\
     pip install --upgrade wheel ;\
     pip install --upgrade python-ldap ;\
     pip install --upgrade pyopenssl ;\
